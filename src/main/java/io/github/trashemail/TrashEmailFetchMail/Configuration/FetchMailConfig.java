@@ -13,10 +13,9 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @Configuration
-@ConfigurationProperties("imap-client-service")
-public class ImapClientServiceConfig {
+@ConfigurationProperties("fetch-mail")
+public class FetchMailConfig {
     private Imap imap;
-    private Telegram telegram;
     private Emails emails;
 
     @Getter
@@ -29,17 +28,6 @@ public class ImapClientServiceConfig {
         private String port;
         private List<String> emails;
         private List<String> passwords;
-    }
-
-    @Getter
-    @Setter
-    @NoArgsConstructor
-    @Configuration
-    @ConfigurationProperties("telegram")
-    public static class Telegram{
-        private String botToken;
-        private String url;
-        private int size;
     }
 
     @Getter

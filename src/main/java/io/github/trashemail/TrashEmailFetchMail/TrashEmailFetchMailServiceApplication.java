@@ -1,6 +1,7 @@
 package io.github.trashemail.TrashEmailFetchMail;
 
-import io.github.trashemail.TrashEmailFetchMail.Configuration.ImapClientServiceConfig;
+import io.github.trashemail.TrashEmailFetchMail.Configuration.FetchMailConfig;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -21,7 +22,7 @@ import java.util.concurrent.CompletableFuture;
 public class TrashEmailFetchMailServiceApplication implements CommandLineRunner {
 
     @Autowired
-    ImapClientServiceConfig imapClientServiceConfig;
+    FetchMailConfig fetchMailConfig;
 
     public static void main(String[] args) {
         SpringApplication
@@ -45,17 +46,17 @@ public class TrashEmailFetchMailServiceApplication implements CommandLineRunner 
 
     @Override
     public void run(String...args) throws Exception{
-        Integer count = imapClientServiceConfig
+        Integer count = fetchMailConfig
                             .getImap()
                             .getEmails().size();
 
         List<CompletableFuture<Void>> jobs = new ArrayList<>();
         for(int i=0; i < count; ++i) {
             ImapClient finalImapClient = new ImapClient(
-                    imapClientServiceConfig.getImap().getHost(),
-                    imapClientServiceConfig.getImap().getPort(),
-                    imapClientServiceConfig.getImap().getEmails().get(i),
-                    imapClientServiceConfig.getImap().getPasswords().get(i)
+                    fetchMailConfig.getImap().getHost(),
+                    fetchMailConfig.getImap().getPort(),
+                    fetchMailConfig.getImap().getEmails().get(i),
+                    fetchMailConfig.getImap().getPasswords().get(i)
             );
 
             CompletableFuture<Void> job_i = CompletableFuture.runAsync(

@@ -13,8 +13,7 @@ import org.springframework.stereotype.Component;
 @Getter
 @Setter
 @NoArgsConstructor
-public class TrashemailConfig {
-    private String host;
-    private String port;
+public class TrashEmailConfig {
+    private String uri;
     private String path;
 }
