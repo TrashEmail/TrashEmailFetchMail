@@ -1,6 +1,7 @@
 package io.github.trashemail.TrashEmailFetchMail.utils;
 
-import io.github.trashemail.TrashEmailFetchMail.Configuration.ImapClientServiceConfig;
+import io.github.trashemail.TrashEmailFetchMail.Configuration.FetchMailConfig;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +13,7 @@ import java.util.UUID;
 @Component
 public class SaveMailToHTMLFile {
     @Autowired
-    private ImapClientServiceConfig imapClientServiceConfig;
+    private FetchMailConfig fetchMailConfig;
 
     private static final Logger log = LoggerFactory.getLogger(
             SaveMailToHTMLFile.class);
@@ -22,9 +23,7 @@ public class SaveMailToHTMLFile {
             String filename = UUID.randomUUID().toString() + ".html";
 
             FileWriter myWriter = new FileWriter(
-                    imapClientServiceConfig
-                            .getEmails()
-                            .getDownloadPath() + filename);
+                    fetchMailConfig.getEmails().getDownloadPath() + filename);
 
             myWriter.write(htmlContent);
             myWriter.close();

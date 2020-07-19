@@ -1,5 +1,6 @@
 package io.github.trashemail.TrashEmailFetchMail;
 
+import io.github.trashemail.TrashEmailFetchMail.Configuration.FetchMailConfig;
 import io.github.trashemail.TrashEmailFetchMail.Configuration.TrashEmailConfig;
 import io.github.trashemail.TrashEmailFetchMail.DTO.Email;
 import io.github.trashemail.TrashEmailFetchMail.utils.MailParser;
@@ -28,6 +29,9 @@ public class ForwardMail {
     private TrashEmailConfig trashEmailConfig;
 
     @Autowired
+    private FetchMailConfig fetchMailConfig;
+
+    @Autowired
     private SaveMailToHTMLFile saveMailToHTMLFile;
 
     @Autowired
@@ -41,7 +45,8 @@ public class ForwardMail {
 
     public void processAndForward(Message message) throws Exception {
         ParsedMail parsedMail = mailParser.parseMail(message);
-
+        System.out.println(parsedMail.getAttachmentSet());
+        System.out.println(parsedMail.getAttachmentList());
         for (String emailFor : parsedMail.getRecipients()) {
             /*
             Send a separate mail for each recipient.
@@ -62,7 +67,7 @@ public class ForwardMail {
                         forwardToTrashEmailService(
                                 parsedMail.toString(),
                                 emailFor,
-                                (String) filename,
+                                fetchMailConfig.getEmails().getHostPath() + (String) filename,
                                 parsedMail.getAttachmentList());
 
                     else {
@@ -78,7 +83,7 @@ public class ForwardMail {
                         forwardToTrashEmailService(
                                 parsedMail.toString(),
                                 emailFor,
-                                (String) filename,
+                                fetchMailConfig.getEmails().getHostPath() + (String) filename,
                                 null);
 
                     else {
@@ -119,9 +124,10 @@ public class ForwardMail {
         Email email = new Email();
         email.setMessage(escapedMessage);
         email.setEmailId(recipient);
-        email.setEmailHostingLocation(emailUri);
+        email.setEmailURI(emailUri);
         email.setAttachmentsPaths(attachments);
 
+        log.info(email.toString());
 
         ResponseEntity response = restTemplate.postForEntity(
                 trashEmailURI,

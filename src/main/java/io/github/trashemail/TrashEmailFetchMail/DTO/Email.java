@@ -15,7 +15,7 @@ import java.util.List;
 public class Email {
     private String emailId;
     private String message;
-    private String emailHostingLocation;
+    private String emailURI;
     private String emailDownloadPath;
     private List<String> attachmentsPaths;
 
@@ -23,7 +23,7 @@ public class Email {
         return "Email{" +
                 "emailId='" + emailId + '\'' +
                 ", message='" + message + '\'' +
-                ", emailHostingLocation='" + emailHostingLocation + '\'' +
+                ", emailHostingLocation='" + emailURI + '\'' +
                 ", emailDownloadPath='" + emailDownloadPath + '\'' +
                 ", attachmentsPaths=" + attachmentsPaths +
                 '}';
