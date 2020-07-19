@@ -16,6 +16,7 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -101,6 +102,7 @@ public class MailParser {
                 We have all plain content, attachments and html content.
                 */
                 parsedMail.attachmentSet = true;
+                List<String> filenames = new ArrayList<>();
 
                 for (DataSource data : messageParser.getAttachmentList()) {
                     String nameRelativeFile = "/tmp" + File.separator + data.getName();
@@ -108,8 +110,10 @@ public class MailParser {
                     boolean ret = FileHelper.writeFile(data.getInputStream(), nameRelativeFile);
                     if (ret) {
                         log.debug("Attachment file written successfully at location: " + nameRelativeFile);
+                        filenames.add(nameRelativeFile);
                     }
                 }
+                parsedMail.setAttachmentList(filenames);
             }
             /*
             This is the best bet.

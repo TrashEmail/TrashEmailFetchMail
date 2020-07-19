@@ -18,4 +18,14 @@ public class Email {
     private String emailHostingLocation;
     private String emailDownloadPath;
     private List<String> attachmentsPaths;
+
+    @Override public String toString() {
+        return "Email{" +
+                "emailId='" + emailId + '\'' +
+                ", message='" + message + '\'' +
+                ", emailHostingLocation='" + emailHostingLocation + '\'' +
+                ", emailDownloadPath='" + emailDownloadPath + '\'' +
+                ", attachmentsPaths=" + attachmentsPaths +
+                '}';
+    }
 }

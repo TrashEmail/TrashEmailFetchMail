@@ -23,7 +23,7 @@ public class ImapClient {
     private String password;
     private String imapHost;
     private String imapPort;
-    private ForwardMailsToTelegram forwardMailsToTelegram;
+    private ForwardMail forwardMail;
 
     public ImapClient(
             String imapHost,
@@ -35,8 +35,8 @@ public class ImapClient {
         this.password = password;
         this.imapHost = imapHost;
         this.imapPort = imapPort;
-        this.forwardMailsToTelegram =
-                SpringContext.getBean(ForwardMailsToTelegram.class);
+        this.forwardMail =
+                SpringContext.getBean(ForwardMail.class);
     }
 
     @Async("threadPooltaskExecutor")
@@ -71,7 +71,7 @@ public class ImapClient {
 
                     for (Message message : messages) {
                         try {
-                            forwardMailsToTelegram.sendToTelegram(message);
+                            forwardMail.processAndForward(message);
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
