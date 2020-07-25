@@ -23,7 +23,7 @@ public class Email {
         return "Email{" +
                 "emailId='" + emailId + '\'' +
                 ", message='" + message + '\'' +
-                ", emailHostingLocation='" + emailURI + '\'' +
+                ", emailURI='" + emailURI + '\'' +
                 ", emailDownloadPath='" + emailDownloadPath + '\'' +
                 ", attachmentsPaths=" + attachmentsPaths +
                 '}';
