@@ -73,7 +73,7 @@ public class ImapClient {
                         try {
                             forwardMail.processAndForward(message);
                         } catch (Exception e) {
-                            e.printStackTrace();
+                            log.debug(String.format("Unable to send Mail %s", e.toString()));
                         }
                     }
                 }
