@@ -18,6 +18,8 @@ public class SaveMailToHTMLFile {
     private static final Logger log = LoggerFactory.getLogger(
             SaveMailToHTMLFile.class);
 
+    private static String safeHTMLCSPPolicy = "<meta http-equiv=\"Content-Security-Policy\" content=\"default-src 'self';style-src 'unsafe-inline';img-src 'self' data:\">";
+
     public Object saveToFile(String htmlContent){
         try {
             String filename = UUID.randomUUID().toString() + ".html";
@@ -25,7 +27,7 @@ public class SaveMailToHTMLFile {
             FileWriter myWriter = new FileWriter(
                     fetchMailConfig.getEmails().getDownloadPath() + filename);
 
-            myWriter.write(htmlContent);
+            myWriter.write(safeHTMLCSPPolicy + htmlContent);
             myWriter.close();
 
             log.debug("File written to disk: "+ filename);
